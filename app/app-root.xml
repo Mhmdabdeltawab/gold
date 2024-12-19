@@ -1,0 +1,5 @@
+<Frame defaultPage="pages/main/main-page">
+  <Frame.actionBar>
+    <ActionBar title="Home Expenses" />
+  </Frame.actionBar>
+</Frame>

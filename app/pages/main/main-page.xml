@@ -1,0 +1,115 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+  <TabView selectedIndex="{{ selectedTab }}" androidTabsPosition="bottom">
+    <!-- Dashboard Tab -->
+    <TabViewItem title="Dashboard" iconSource="res://ic_dashboard">
+      <GridLayout rows="auto, *">
+        <!-- Summary Cards -->
+        <GridLayout row="0" columns="*, *, *" class="p-2">
+          <StackLayout col="0" class="bg-blue-100 p-4 m-1 rounded-lg">
+            <Label text="Monthly" class="text-sm text-gray-600" />
+            <Label text="{{ monthlyTotal | currency }}" class="text-lg font-bold" />
+          </StackLayout>
+          <StackLayout col="1" class="bg-green-100 p-4 m-1 rounded-lg">
+            <Label text="Budget Left" class="text-sm text-gray-600" />
+            <Label text="{{ budgetRemaining | currency }}" class="text-lg font-bold" />
+          </StackLayout>
+          <StackLayout col="2" class="bg-purple-100 p-4 m-1 rounded-lg">
+            <Label text="Savings" class="text-sm text-gray-600" />
+            <Label text="{{ savingsTotal | currency }}" class="text-lg font-bold" />
+          </StackLayout>
+        </GridLayout>
+
+        <!-- Quick Actions -->
+        <ScrollView row="1">
+          <StackLayout class="p-4">
+            <Button text="Add Expense" tap="{{ onAddExpense }}" class="-primary mb-2" />
+            <Button text="Add Budget" tap="{{ onAddBudget }}" class="-outline mb-2" />
+            <Label text="Recent Expenses" class="text-lg font-bold mt-4 mb-2" />
+            <ListView items="{{ recentExpenses }}" height="200">
+              <ListView.itemTemplate>
+                <GridLayout columns="*, auto" class="p-2 border-b border-gray-200">
+                  <Label col="0" text="{{ description }}" class="font-medium" />
+                  <Label col="1" text="{{ amount | currency }}" class="text-right" />
+                </GridLayout>
+              </ListView.itemTemplate>
+            </ListView>
+          </StackLayout>
+        </ScrollView>
+      </GridLayout>
+    </TabViewItem>
+
+    <!-- Expenses Tab -->
+    <TabViewItem title="Expenses" iconSource="res://ic_expenses">
+      <GridLayout>
+        <ListView items="{{ expenses }}" class="list-group">
+          <ListView.itemTemplate>
+            <GridLayout columns="*, auto" class="p-4 border-b border-gray-200">
+              <StackLayout col="0">
+                <Label text="{{ description }}" class="font-medium" />
+                <Label text="{{ category }}" class="text-sm text-gray-600" />
+                <Label text="{{ date, 'MMM dd' }}" class="text-xs text-gray-500" />
+              </StackLayout>
+              <StackLayout col="1" class="text-right">
+                <Label text="{{ amount | currency }}" class="font-bold" />
+                <Label text="{{ type }}" class="text-xs" class="{{ type === 'shared' ? 'text-purple-600' : 'text-gray-500' }}" />
+              </StackLayout>
+            </GridLayout>
+          </ListView.itemTemplate>
+        </ListView>
+        <Button text="+" tap="{{ onAddExpense }}" class="fab-button" />
+      </GridLayout>
+    </TabViewItem>
+
+    <!-- Budgets Tab -->
+    <TabViewItem title="Budgets" iconSource="res://ic_budget">
+      <GridLayout rows="auto, *">
+        <GridLayout row="0" columns="*, *" class="p-2">
+          <StackLayout col="0" class="bg-blue-100 p-4 m-1 rounded-lg">
+            <Label text="Monthly Budget" class="text-sm text-gray-600" />
+            <Label text="{{ totalBudget | currency }}" class="text-lg font-bold" />
+          </StackLayout>
+          <StackLayout col="1" class="bg-green-100 p-4 m-1 rounded-lg">
+            <Label text="Remaining" class="text-sm text-gray-600" />
+            <Label text="{{ budgetRemaining | currency }}" class="text-lg font-bold" />
+          </StackLayout>
+        </GridLayout>
+        <ListView row="1" items="{{ budgets }}" class="list-group">
+          <ListView.itemTemplate>
+            <GridLayout rows="auto, auto" columns="*, auto" class="p-4 border-b border-gray-200">
+              <Label row="0" col="0" text="{{ category }}" class="font-medium" />
+              <ProgressBar row="1" col="0" value="{{ progress }}" maxValue="100" class="m-2" />
+              <Label row="0" col="1" text="{{ amount | currency }}" class="text-right" />
+              <Label row="1" col="1" text="{{ spent | currency }}" class="text-right text-sm text-gray-600" />
+            </GridLayout>
+          </ListView.itemTemplate>
+        </ListView>
+      </GridLayout>
+    </TabViewItem>
+
+    <!-- Settings Tab -->
+    <TabViewItem title="Settings" iconSource="res://ic_settings">
+      <ScrollView>
+        <StackLayout class="p-4">
+          <Label text="Profile" class="text-lg font-bold mb-2" />
+          <TextField text="{{ user.displayName }}" hint="Display Name" class="input mb-2" />
+          <TextField text="{{ user.email }}" hint="Email" editable="false" class="input mb-4" />
+          
+          <Label text="Preferences" class="text-lg font-bold mb-2" />
+          <GridLayout columns="*, auto" class="mb-2">
+            <Label col="0" text="Dark Mode" class="text-base" />
+            <Switch col="1" checked="{{ darkMode }}" />
+          </GridLayout>
+          <DropDown items="{{ currencies }}" selectedIndex="{{ selectedCurrencyIndex }}" class="mb-2" />
+          <GridLayout columns="*, auto" class="mb-4">
+            <Label col="0" text="Notifications" class="text-base" />
+            <Switch col="1" checked="{{ notifications }}" />
+          </GridLayout>
+
+          <Button text="Link Partner Account" tap="{{ onLinkPartner }}" class="-outline mb-2" />
+          <Button text="Export Data" tap="{{ onExportData }}" class="-outline mb-2" />
+          <Button text="Sign Out" tap="{{ onSignOut }}" class="-primary" />
+        </StackLayout>
+      </ScrollView>
+    </TabViewItem>
+  </TabView>
+</Page>

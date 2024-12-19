@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fab-button {
+  width: 56;
+  height: 56;
+  border-radius: 28;
+  background-color: #4f46e5;
+  color: white;
+  font-size: 24;
+  margin: 16;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+.input {
+  padding: 12;
+  border-width: 1;
+  border-color: #e5e7eb;
+  border-radius: 8;
+  font-size: 16;
+}
+
+.-primary {
+  background-color: #4f46e5;
+  color: white;
+  padding: 12;
+  border-radius: 8;
+  font-weight: bold;
+}
+
+.-outline {
+  border-width: 1;
+  border-color: #4f46e5;
+  color: #4f46e5;
+  padding: 12;
+  border-radius: 8;
+  font-weight: bold;
+}
